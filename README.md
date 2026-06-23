@@ -1,16 +1,22 @@
-# React + Vite
+🎙️ Podcast Explorer App 
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+ Overview
 
-Currently, two official plugins are available:
+A React app that lets users browse podcasts with search, sorting, filtering, and pagination. Built to practice state management and dynamic UI updates.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+📱Features
+- Search podcasts by title (live filtering)
+- Sort by newest, A–Z, or Z–A
+- Filter by genre
+- Pagination (10 podcasts per page)
+- Fully synced UI state (search + sort + filter + pagination)
 
-## React Compiler
+⚙️ Setup
+npm install
+npm run dev
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+📡 API
+Data is fetched from:
+https://podcast-api.netlify.app/shows
+Genres are mapped locally using data.js.
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
