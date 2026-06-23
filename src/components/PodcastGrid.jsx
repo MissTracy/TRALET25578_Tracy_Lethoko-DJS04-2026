@@ -6,8 +6,7 @@ import PodcastCard from "./PodcastCard";
  *
  * @param {Object} props
  * @param {Array<Object>} props.podcasts - Array of podcast objects to display.
- * @param {Array<Object>} props.genres - Array of genre objects used to map genre IDs to titles.
- *
+ * @param {Array<Object>} props.genres - List of genre objects used to map genre IDs to readable titles.
  * @returns {JSX.Element} The rendered grid of podcast cards.
  *
  */
@@ -24,3 +23,5 @@ export default function PodcastGrid({ podcasts, genres }) {
     </div>
   );
 }
+
+

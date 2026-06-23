@@ -5,12 +5,36 @@ import { fetchPodcasts } from "./api/fetchPodcasts";
 import Header from "./components/Header";
 
 /**
- * App - The root component of the Podcast Explorer application. It handles:
+ * App - Root component of the Podcast Explorer application.
+ *
+ * Handles:
  * - Fetching podcast data from a remote API
- * - Managing loading and error states
- * - Rendering the podcast grid once data is successfully fetched
- * - Displaying a header and fallback UI during loading or error
- * @returns {JSX.Element} The rendered application interface
+ * - Managing global UI state (search, sort, filter, pagination)
+ * - Filtering podcasts by title and selected genre
+ * - Sorting podcasts by newest or title (A-Z / Z-A)
+ * - Paginating results into pages of 10 items
+ * - Resetting pagination when filters or sorting change
+ *
+ * Features:
+ * - Live search filtering by podcast title
+ * - Genre filtering using dropdown selection
+ * - Sorting by newest, title A-Z, or title Z-A
+ * - Pagination with next/previous navigation
+ *
+ * State Management:
+ * - podcasts: raw API data
+ * - search: search input value
+ * - sort: current sort mode
+ * - selectedGenres: active genre filter
+ * - currentPage: active pagination page
+ * - podcastsPerPage: number of items per page
+ *
+ * Derived Data:
+ * - filteredPodcasts: podcasts after search + filter + sort
+ * - paginatedPodcasts: final slice of data shown per page
+ * - totalPages: total number of pages based on filtered results
+ *
+ * @returns {JSX.Element} The rendered application UI
  */
 export default function App() {
   const [podcasts, setPodcasts] = useState([]);
@@ -21,9 +45,16 @@ export default function App() {
   const [sort, setSort] = useState("newest");
   const [selectedGenres, setSelectedGenres] = useState([]);
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const podcastsPerPage = 10;
+
   useEffect(() => {
     fetchPodcasts(setPodcasts, setError, setLoading);
   }, []);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [search, sort, selectedGenres]);
 
   const filteredPodcasts = podcasts
   .filter((podcast) => {
@@ -48,6 +79,20 @@ export default function App() {
 
     return new Date(b.updated) - new Date(a.updated);
   });
+
+
+  const totalPages = Math.ceil(
+    filteredPodcasts.length / podcastsPerPage
+  );
+
+  const startIndex = (currentPage - 1) * podcastsPerPage;
+
+  const paginatedPodcasts = filteredPodcasts.slice(
+    startIndex,
+    startIndex + podcastsPerPage
+  );
+
+  
 
   return (
     <>
@@ -105,9 +150,29 @@ export default function App() {
   
             {/* grid */}
             <PodcastGrid
-              podcasts={filteredPodcasts}
+              podcasts={paginatedPodcasts}
               genres={genres}
             />
+
+            <div className="pagination">
+              <button
+                onClick={() => setCurrentPage((p) => p - 1)}
+                disabled={currentPage === 1}
+              >
+                Previous
+              </button>
+
+              <span>
+                Page {currentPage} of {totalPages}
+              </span>
+
+              <button
+                onClick={() => setCurrentPage((p) => p + 1)}
+                disabled={currentPage === totalPages}
+              >
+                Next
+              </button>
+            </div>
           </>
         )}
       </main>
