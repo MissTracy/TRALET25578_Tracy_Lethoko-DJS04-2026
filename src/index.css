@@ -14,6 +14,8 @@ body {
   padding: 1rem;
   background: white;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+  align-items: center;
+  padding: 1rem;
 }
 
 .grid {
@@ -97,10 +99,38 @@ body {
   font-weight: bold;
   max-width: 400px;
   margin-top: 10%;
+} 
+
+.controls {
+  display: flex;
+  padding-left: 1rem;
+  gap: 10px;
+  align-items: center;
+  border-radius: 50px;
+  padding: 1rem;
+  box-sizing: border-box;
+
 }
 
+.controls input {
+  min-width: 160px;
+}
+
+.controls select {
+  /* flex: 1; */
+  min-width: 120px;
+}
+
+.pagination{
+  display: flex;
+  padding-left: 1rem;
+  gap: 10px;
+  align-items: center;
+}
 @keyframes spin {
   to {
     transform: rotate(360deg);
   }
 }
+
+
