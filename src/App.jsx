@@ -84,6 +84,23 @@ export default function App() {
                 <option value="title-asc">Title A-Z</option>
                 <option value="title-desc">Title Z-A</option>
               </select>
+
+              <select
+                value={selectedGenres[0] || ""}
+                onChange={(e) =>
+                  setSelectedGenres(
+                    e.target.value ? [Number(e.target.value)] : []
+                  )
+                }
+              >
+                <option value="">All Genres</option>
+
+                {genres.map((genre) => (
+                  <option key={genre.id} value={genre.id}>
+                    {genre.title}
+                  </option>
+                ))}
+              </select>
             </div>
   
             {/* grid */}
